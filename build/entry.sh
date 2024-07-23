@@ -31,10 +31,11 @@ echo "using openvpn configuration file: $config_file"
 openvpn_args=(
     "--config" "$config_file"
     "--cd" "/config"
+    "--script-security" "3" "system" 
 )
 
 if is_enabled "$KILL_SWITCH"; then
-    openvpn_args+=("--script-security 3 system" "--route-up" "/usr/local/bin/killswitch.sh $ALLOWED_SUBNETS")
+    openvpn_args+=("--route-up" "/usr/local/bin/killswitch.sh $ALLOWED_SUBNETS")
 fi
 
 openvpn "${openvpn_args[@]}" &

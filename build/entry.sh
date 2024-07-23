@@ -13,6 +13,7 @@ is_enabled() {
     [[ ${1,,} =~ ^(true|t|yes|y|1|on|enable|enabled)$ ]]
 }
 
+echo "Loading config file"
 # Either a specific file name or a pattern.
 if [[ $CONFIG_FILE ]]; then
     config_file=$(find /config -name "$CONFIG_FILE" 2> /dev/null | sort | shuf -n 1)
@@ -32,6 +33,8 @@ openvpn_args=(
     "--config" "$config_file"
     "--cd" "/config"
 )
+
+echo "Running command openvpn "${openvpn_args[@]}""
 
 openvpn "${openvpn_args[@]}" &
 openvpn_pid=$!

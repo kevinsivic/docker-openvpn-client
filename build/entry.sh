@@ -29,9 +29,9 @@ echo "using openvpn configuration file: $config_file"
 
 
 openvpn_args=(
+    "--script-security" "3" "system" 
     "--config" "$config_file"
     "--cd" "/config"
-    "--script-security" "3" "system" 
 )
 
 if is_enabled "$KILL_SWITCH"; then
